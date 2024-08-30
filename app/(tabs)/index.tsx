@@ -6,17 +6,11 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-const HomeScreen = () => {
-  const titlePosition = useSharedValue(-100);
-  const backgroundColor = useSharedValue('#74b9ff');
-  const titleOpacity = useSharedValue(1);
+const Home= () => {
+  const backgroundColor = useSharedValue('green');
+  const opacity = useSharedValue(1);
+  const position = useSharedValue(-100);
 
-  const animatedTitleStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: titlePosition.value }],
-      opacity: titleOpacity.value,
-    };
-  });
 
 
   const animatedBackgroundStyle = useAnimatedStyle(() => {
@@ -26,20 +20,28 @@ const HomeScreen = () => {
   });
 
   useEffect(() => {
-    titlePosition.value = withTiming(0, { duration: 1000 });
+    position.value = withTiming(0, { duration: 1000 });
   }, []);
 
-  const handleStartPress = () => {
-    backgroundColor.value = withTiming('red', { duration: 500 });
-    titleOpacity.value = withTiming(0, { duration: 500 });
+  const handlePress = () => {
+    backgroundColor.value = withTiming('blue', { duration: 500 });
+    opacity.value = withTiming(0, { duration: 500 });
   };
+
+
+  const animatedTitle= useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: position.value }],
+      opacity: opacity.value,
+    };
+  });
 
   return (
     <Animated.View style={[styles.container, animatedBackgroundStyle]}>
-      <Animated.Text style={[styles.title, animatedTitleStyle]}>
+      <Animated.Text style={[styles.title, animatedTitle]}>
         Bienvenido
       </Animated.Text>
-      <TouchableOpacity style={styles.button} onPress={handleStartPress}>
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Iniciar</Text>
       </TouchableOpacity>
     </Animated.View>
@@ -53,6 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
+    color:"white",
     fontSize: 32,
     fontWeight: 'bold',
     position: 'absolute',
@@ -60,12 +63,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
+    borderRadius: 5,
     position: 'absolute',
-    bottom: 50,
     backgroundColor: 'black',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 15
   },
   buttonText: {
     color: '#fff',
@@ -74,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;
