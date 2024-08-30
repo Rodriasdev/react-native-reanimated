@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, {useEffect} from 'react';
+import {  Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -25,7 +25,7 @@ const HomeScreen = () => {
     };
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     titlePosition.value = withTiming(0, { duration: 1000 });
   }, []);
 
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   button: {
     position: 'absolute',
     bottom: 50,
-    backgroundColor: '#6c5ce7',
+    backgroundColor: 'black',
     paddingVertical: 15,
     paddingHorizontal: 40,
     borderRadius: 30,
